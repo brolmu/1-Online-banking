@@ -1,0 +1,30 @@
+
+### List of users
+GET http://localhost:1234/users
+
+### Get user by id
+GET http://localhost:1234/users/4
+
+### Get user by name
+GET http://localhost:1234/users?name=John
+
+### Create user
+POST http://localhost:1234/users
+Content-Type: application/json
+
+{
+  "name": "Jose Doe",
+  "email": "Jose.Doe@superrito.com"
+}
+
+### Update user
+PATCH  http://localhost:1234/users/4
+Content-Type: application/json
+
+{
+  "name": "carlos Doe",
+  "email": "Jose.Doe@superrito.com"
+}
+
+### Delete user
+DELETE http://localhost:1234/users/4

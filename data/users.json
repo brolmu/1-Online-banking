@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "John.Doe@superrito.com",
+    "password": "123456",
+    "role": "admin"
+  },
+  {
+    "id": 2,
+    "name": "Jane Doe",
+    "email": "Jane.Doe@superrito.com",
+    "password": "123456",
+    "role": "user"
+  },
+  {
+    "id": 3,
+    "name": "Janse Doe",
+    "email": "Janse.Doe@superrito.com",
+    "password": "123456",
+    "role": "user"
+  }
+]
