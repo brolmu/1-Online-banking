@@ -10,7 +10,7 @@ const userSchema = z.object({
 const userResponseSchema = z.object({
   name: z.string().min(3).max(50),
   email: z.string().email(),
-  role: z.enum(['admin', 'user'])
+  role: z.enum(['admin', 'user']).optional().default('user')
 })
 
 export function validateUser (object) {
