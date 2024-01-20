@@ -7,6 +7,12 @@ const userSchema = z.object({
   role: z.enum(['admin', 'user']).optional().default('user')
 })
 
+const userResponseSchema = z.object({
+  name: z.string().min(3).max(50),
+  email: z.string().email(),
+  role: z.enum(['admin', 'user'])
+})
+
 export function validateUser (object) {
   return userSchema.safeParse(object)
 }
@@ -22,4 +28,8 @@ export function validateUserId (id) {
   }
 
   return { success: true, error: null, userId }
+}
+
+export function validateUserResponse (object) {
+  return userResponseSchema.safeParse(object)
 }

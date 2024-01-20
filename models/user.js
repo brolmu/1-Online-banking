@@ -1,4 +1,5 @@
 import { readJSONFile } from '../utils.js'
+import Jwt from 'jsonwebtoken'
 
 const users = readJSONFile('./data/users.json')
 
@@ -57,6 +58,29 @@ export class UserModel {
     }
     users.splice(userIndex, 1)
     return true
+  }
+
+  static async getByEmail ({ email }) {
+    const user = users.find((user) => user.email.toLowerCase() === email.toLowerCase())
+    return user
+  }
+
+  static async comparePassword ({ password, hash }) {
+    return password === hash
+  }
+
+  static async generateToken ({ id }) {
+    return Jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1h' })
+  }
+
+  static async validateToken ({ token }) {
+    const verified = Jwt.verify(token, process.env.JWT_SECRET)
+    if (verified) {
+      return true
+    } else {
+      // Access Denied
+      return false
+    }
   }
 }
 

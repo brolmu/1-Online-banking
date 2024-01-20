@@ -1,11 +1,12 @@
 import { UserModel } from '../models/models.js'
-import { validateUser, validatePartialUser, validateUserId } from '../schemas/user.js'
+import { validateUser, validatePartialUser, validateUserId, validateUserResponse } from '../schemas/user.js'
 
 export class UserController {
   static async getAll (req, res) {
     const { name } = req.query
     const result = await UserModel.getAll({ name })
-    res.json(result)
+
+    res.json(formatResponseList(result))
   }
 
   static async getById (req, res) {
@@ -20,7 +21,7 @@ export class UserController {
       return res.status(400).json({ message: 'User not found' })
     }
 
-    res.json(user)
+    res.json(formatResponse(user))
   }
 
   static async create (req, res) {
@@ -29,7 +30,7 @@ export class UserController {
       return { error: JSON.parse(result.error.message) }
     }
     const newUser = await UserModel.create({ object: result.data })
-    res.status(201).json(newUser)
+    res.status(201).json(formatResponse(newUser))
   }
 
   static async update (req, res) {
@@ -49,7 +50,7 @@ export class UserController {
       return res.status(400).json({ message: user.error })
     }
 
-    res.status(201).json(user)
+    res.status(201).json(formatResponse(user))
   }
 
   static async delete (req, res) {
@@ -65,4 +66,14 @@ export class UserController {
     }
     res.status(204).end()
   }
+}
+
+function formatResponseList (result) {
+  const response = result.map(x => validateUserResponse(x).data)
+  return response
+}
+
+function formatResponse (result) {
+  const response = validateUserResponse(result)
+  return response.data
 }
